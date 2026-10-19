@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+@theme {
+  --animate-sweep: sweep 2s linear infinite;
+}
+
+@keyframes sweep {
+  0% {
+    transform: translateX(-80px) rotate(12deg);
+  }
+  100% {
+    transform: translateX(300%) rotate(12deg);
+  }
+}

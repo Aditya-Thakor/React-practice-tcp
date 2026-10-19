@@ -1,0 +1,61 @@
+npm install @reduxjs/toolkit react-redux
+
+
+import { createSlice } from "@reduxjs/toolkit";
+
+const counterSlice = createSlice({
+    name:"couunter",
+    initialState:{value:0},
+    reducers:{
+        increment:(state)=>{
+            state.value+=1;
+        },
+        decrement:(state)=>{
+            state.value-=1;
+        }
+    }
+});
+
+export const {increment,decrement} = counterSlice.actions;
+export default counterSlice.reducer;
+
+
+
+import { configureStore } from "@reduxjs/toolkit";
+import counterReducer from "./counterSlice";
+export const store = configureStore({
+    reducer:{
+        counter:counterReducer
+    }
+});
+
+
+<Provider store={store}>
+      <Home></Home>
+    </Provider>
+
+
+
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { decrement, increment } from "./counterSlice";
+
+export default function Home(){
+
+  const [count, setCount] = useState(0);
+  
+  const c = useSelector((state) => state.counter.value);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    console.log(`Count has changed to: ${count}`);
+  }, [count]);
+
+    return (
+        <div>
+      <p>Count: {c}</p>
+      <h1>Test</h1>
+      <button onClick={() => dispatch(increment())}>Increment</button>
+      <button onClick={() => dispatch(decrement())}>Decrement</button>
+    </div>
+    );
+}
